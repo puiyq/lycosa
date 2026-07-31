@@ -4,7 +4,7 @@
 	"main": "https://hero.aulastar.com/keyboard",
 	"node-remote": "https://hero.aulastar.com",
 	"inject_js_start": "zoom.js",
-	"chromium-args": "--enable-features=WebHID",
+	"chromium-args": "--enable-features=WebHID,UseOzonePlatform --ozone-platform-hint=auto",
 	"permissions": [
 		"hid",
 		{
