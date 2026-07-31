@@ -1,6 +1,6 @@
 {
 	"name": "lycosa",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"main": "https://hero.aulastar.com/keyboard",
 	"node-remote": "https://hero.aulastar.com",
 	"inject_js_start": "zoom.js",
