@@ -1,12 +1,14 @@
-import { app, BrowserWindow, Menu } from "electron";
-import type { HIDDevice } from "electron";
 import path from "node:path";
+import type { HIDDevice } from "electron";
+import { app, BrowserWindow, Menu } from "electron";
 
 const TARGET_URL = "https://hero.aulastar.com/keyboard";
 const VENDOR_ID = 14126;
 const PRODUCT_ID = 4158;
 const DEFAULT_ZOOM_FACTOR = 1;
-const ZOOM_FACTOR = Number.parseFloat(process.env.LYCOSA_ZOOM_FACTOR ?? "") || DEFAULT_ZOOM_FACTOR;
+const ZOOM_FACTOR =
+	Number.parseFloat(process.env.LYCOSA_ZOOM_FACTOR ?? "") ||
+	DEFAULT_ZOOM_FACTOR;
 
 app.commandLine.appendSwitch("enable-features", "WebHID");
 
@@ -36,7 +38,8 @@ function createWindow(): void {
 
 	session.setDevicePermissionHandler(
 		(details) =>
-			details.deviceType === "hid" && isTargetDevice(details.device as HIDDevice),
+			details.deviceType === "hid" &&
+			isTargetDevice(details.device as HIDDevice),
 	);
 
 	session.setPermissionCheckHandler((_wc, permission) => permission === "hid");
