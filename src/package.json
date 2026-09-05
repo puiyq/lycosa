@@ -1,25 +1,5 @@
 {
 	"name": "lycosa",
-	"version": "0.1.1",
-	"main": "https://hero.aulastar.com/keyboard",
-	"node-remote": "https://hero.aulastar.com",
-	"inject_js_start": "zoom.js",
-	"chromium-args": "--enable-features=WebHID,UseOzonePlatform --ozone-platform-hint=auto",
-	"permissions": [
-		"hid",
-		{
-			"usbDevices": [
-				{
-					"vendorId": 14126,
-					"productId": 4158
-				}
-			]
-		}
-	],
-	"window": {
-		"title": "Lycosa",
-		"width": 1100,
-		"height": 750,
-		"icon": "icon.png"
-	}
+	"version": "0.2.0",
+	"main": "main.js"
 }

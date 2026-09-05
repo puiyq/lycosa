@@ -5,12 +5,14 @@
   makeDesktopItem,
   copyDesktopItems,
   esbuild,
-  nwjs,
+  electron,
+
+  zoomFactor ? "1",
 }:
 
 stdenv.mkDerivation {
   pname = "lycosa";
-  version = "0.1.1";
+  version = "0.2.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -20,7 +22,7 @@ stdenv.mkDerivation {
     fileset = lib.fileset.unions [
       ./src/icon.png
       ./src/package.json
-      ./src/zoom.ts
+      ./src/main.ts
     ];
   };
   nativeBuildInputs = [
@@ -49,11 +51,12 @@ stdenv.mkDerivation {
     mkdir -p $out/share/lycosa $out/bin
 
     cp -r src/package.json src/icon.png $out/share/lycosa/
-    esbuild src/zoom.ts --bundle --format=iife --outfile=$out/share/lycosa/zoom.js
+    esbuild src/main.ts --bundle --platform=node --format=cjs --external:electron --outfile=$out/share/lycosa/main.js
 
     install -Dm644 src/icon.png $out/share/icons/hicolor/512x512/apps/lycosa.png
 
-    makeWrapper ${lib.getExe nwjs} $out/bin/lycosa \
+    makeWrapper ${lib.getExe electron} $out/bin/lycosa \
+     --set LYCOSA_ZOOM_FACTOR "${zoomFactor}" \
       --add-flags "$out/share/lycosa"
 
     runHook postInstall
@@ -61,7 +64,7 @@ stdenv.mkDerivation {
 
   meta = {
     mainProgram = "lycosa";
-    description = "NW.js wrapper for the AULA HERO 84 HE WebHID configuration page";
+    description = "Electron wrapper for the AULA HERO 84 HE WebHID configuration page";
     homepage = "https://github.com/puiyq/lycosa";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ puiyq ];
