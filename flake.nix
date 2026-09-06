@@ -32,8 +32,8 @@
           devShells.default = pkgs.mkShell {
             inputsFrom = [ self'.packages.default ];
             packages = with pkgs; [
-              esbuild
-              nodejs
+              electron
+              typescript
             ];
           };
 
