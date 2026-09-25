@@ -45,6 +45,8 @@ stdenv.mkDerivation {
   dontConfigure = true;
   dontBuild = true;
 
+  env.NODE_ENV = "production";
+
   installPhase = ''
     runHook preInstall
 
