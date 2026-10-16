@@ -5,10 +5,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -19,7 +15,7 @@
         "aarch64-linux"
       ];
 
-      imports = [ inputs.treefmt-nix.flakeModule ];
+      imports = [ ./dev/partition.nix ];
 
       perSystem =
         { pkgs, self', ... }:
@@ -32,22 +28,8 @@
           devShells.default = pkgs.mkShell {
             inputsFrom = [ self'.packages.default ];
             packages = with pkgs; [
-              electron
               typescript
             ];
-          };
-
-          treefmt = {
-            projectRootFile = "flake.nix";
-            programs = {
-              biome.enable = true;
-              deadnix.enable = true;
-              nixfmt = {
-                enable = true;
-                package = pkgs.nixfmt-rs;
-              };
-              statix.enable = true;
-            };
           };
         };
 
